@@ -1,5 +1,7 @@
 # Agent Skills
 
+Skills template framework for other projects. Open Source ZIP downloadable.
+
 ## Development, control version, decision making
 
 - coding-guidelines: (Development) Apply when writing, modifying, or reviewing code. Behavioral guidelines to reduce common LLM coding mistakes. 
