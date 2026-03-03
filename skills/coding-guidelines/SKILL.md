@@ -7,9 +7,8 @@ description: >
   or feature development.
 license: Apache-2.0
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0.0"
-  source: "Karpathy Guidelines"
   scope: [root]
   auto_invoke: "Writing, modifying, or reviewing code implementations"
 ---

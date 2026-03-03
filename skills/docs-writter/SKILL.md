@@ -6,7 +6,7 @@ description: >
 	Trigger: When the task involves documentation authoring, editing, or review.
 license: Apache-2.0
 metadata:
-	author: current_repo
+	author: jackonedev
 	version: "1.0.0"
 	scope: [root]
 	auto_invoke: "Writing, reviewing, or editing documentation"

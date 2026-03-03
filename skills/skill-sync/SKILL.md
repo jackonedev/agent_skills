@@ -5,7 +5,7 @@ description: >
   Trigger: When updating skill metadata (metadata.scope/metadata.auto_invoke), regenerating Auto-invoke tables, or running ./skills/skill-sync/assets/sync.sh (including --dry-run/--scope).
 license: Apache-2.0
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0"
   scope: [root]
   auto_invoke:
@@ -27,7 +27,7 @@ Each skill that should appear in Auto-invoke sections needs these fields in `met
 
 ```yaml
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0"
   scope: [ui]                                    # Which AGENTS.md: ui, api, sdk, root
 
@@ -79,7 +79,7 @@ Given this skill metadata:
 ```yaml
 # skills/current_repo-ui/SKILL.md
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0"
   scope: [ui]
   auto_invoke: "Creating/modifying React components"

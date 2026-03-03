@@ -7,7 +7,7 @@ description: >
   or is setting up root vs component agent instructions.
 license: Apache-2.0
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0.0"
   scope: [agent_skills]
   auto_invoke: "Creating AGENTS.md files"
@@ -72,9 +72,9 @@ Avoid:
 
 ## Inputs (README-driven)
 
-When generating a **root** `AGENTS.md`, prefer to source factual repo details from the repo root `README.md`.
+When generating a **root** `AGENTS.md`, prefer to source factual repo details from the target repo’s root `README.md`.
 
-This repo provides a ready-to-fill template at `README.md` with the recommended headings.
+This repo ships a ready-to-fill README template at `agent_skills/README_TEMPLATE.md` (intended to be copied/adapted into the target repo).
 If the target repo’s README differs, extract the same information from equivalent sections.
 
 Minimum data to extract:
@@ -86,7 +86,7 @@ Minimum data to extract:
 ## Suggested Workflow
 
 1. Choose root vs component `AGENTS.md`
-2. Read the repo `README.md` sections that describe overview, components, and dev commands
+2. Read the target repo’s root `README.md` sections that describe overview, components, and dev commands
 3. Start from the template
 4. Fill in repo-specific commands and component map
 5. Ensure the `### Auto-invoke Skills` section exists

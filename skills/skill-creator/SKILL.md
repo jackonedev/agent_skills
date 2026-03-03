@@ -5,7 +5,7 @@ description: >
   Trigger: When user asks to create a new skill, add agent instructions, or document patterns for AI.
 license: Apache-2.0
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0"
   scope: [root]
   auto_invoke: "Creating new skills"
@@ -51,7 +51,7 @@ description: >
   Trigger: {When the AI should load this skill}.
 license: Apache-2.0
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0"
 ---
 
@@ -123,7 +123,7 @@ Generic skill needs current_repo info?  → Add references/ pointing to current_
 | `name` | Yes | Skill identifier (lowercase, hyphens) |
 | `description` | Yes | What + Trigger in one block |
 | `license` | Yes | Always `Apache-2.0` for current_repo |
-| `metadata.author` | Yes | `current_repo` |
+| `metadata.author` | Yes | `jackonedev` |
 | `metadata.version` | Yes | Semantic version as string |
 
 ---

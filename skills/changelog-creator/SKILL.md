@@ -6,7 +6,7 @@ description: >
   or creating a release section.
 license: Apache-2.0
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0.0"
   scope: [root]
   auto_invoke:

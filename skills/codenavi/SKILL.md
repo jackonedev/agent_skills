@@ -13,7 +13,7 @@ description: >
   CI/CD, or infrastructure provisioning.
 license: Apache-2.0
 metadata:
-  author: current_repo
+  author: jackonedev
   version: "1.0.0"
   scope: [root]
   auto_invoke: "Fixing bugs, implementing features, refactoring, or investigating existing code flows"
