@@ -31,6 +31,7 @@ Use the `agent-creator` skill whenever you need an `AGENTS.md` template or need 
 | Skill | Description | URL |
 |-------|-------------|-----|
 | `agent-creator` | Create/update `AGENTS.md` files (root + subfolders) | [SKILL.md](../skills/agent-creator/SKILL.md) |
+| `changelog-creator` | Create/update `CHANGELOG.md` files | [SKILL.md](../skills/changelog-creator/SKILL.md) |
 | `skill-creator` | Create new AI agent skills | [SKILL.md](../skills/skill-creator/SKILL.md) |
 | `skill-sync` | Sync skill metadata into Auto-invoke tables | [SKILL.md](../skills/skill-sync/SKILL.md) |
 
@@ -40,12 +41,16 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
 
 | Action | Skill |
 |--------|-------|
+| Add a changelog entry for a PR or feature | `changelog-creator` |
 | After creating/modifying a skill | `skill-sync` |
+| Create a new release section in CHANGELOG.md | `changelog-creator` |
 | Creating AGENTS.md files | `agent-creator` |
 | Creating new skills | `skill-creator` |
 | Fixing bugs, implementing features, refactoring, or investigating existing code flows | `codenavi` |
 | Regenerate AGENTS.md Auto-invoke tables (sync.sh) | `skill-sync` |
+| Review changelog format and conventions | `changelog-creator` |
 | Troubleshoot why a skill is missing from AGENTS.md auto-invoke | `skill-sync` |
+| Update CHANGELOG.md | `changelog-creator` |
 | Writing, modifying, or reviewing code implementations | `coding-guidelines` |
 | Writing, reviewing, or editing documentation | `docs-writter` |
 
