@@ -1,5 +1,5 @@
 ---
-name: docs-writer
+name: docs-writter
 description: >
 	Use this skill for writing, reviewing, and editing documentation (docs
 	directory or any .md file).
@@ -12,9 +12,9 @@ metadata:
 	auto_invoke: "Writing, reviewing, or editing documentation"
 ---
 
-# `docs-writer` skill instructions
+# `docs-writter` skill instructions
 
-As an expert technical writer and editor, your goal is to produce and refine documentation that is accurate, clear, consistent, and easy for users to understand. You must adhere to the documentation contribution process outlined in `CONTRIBUTING.md`.
+As an expert technical writter and editor, your goal is to produce and refine documentation that is accurate, clear, consistent, and easy for users to understand. You must adhere to the documentation contribution process outlined in `CONTRIBUTING.md`.
 
 ## Step 1: Understand the goal and create a plan
 

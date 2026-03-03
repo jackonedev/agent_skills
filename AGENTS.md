@@ -15,7 +15,7 @@ Use these skills for detailed patterns on-demand:
 |-------|-------------|-----|
 | Fixing bugs, implementing features, refactoring, or investigating existing code flows | `codenavi` | [SKILL.md](skills/codenavi/SKILL.md) |
 | Writing, modifying, or reviewing code implementations | `coding-guidelines` | [SKILL.md](skills/coding-guidelines/SKILL.md) |
-| Writing, reviewing, or editing documentation | `docs-writer` | [SKILL.md](skills/docs-writer/SKILL.md) |
+| Writing, reviewing, or editing documentation | `docs-writter` | [SKILL.md](skills/docs-writter/SKILL.md) |
 
 ### current_project-Specific Skills
 | Skill | Description | URL |
