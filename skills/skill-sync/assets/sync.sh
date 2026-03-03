@@ -35,7 +35,7 @@ while [[ $# -gt 0 ]]; do
             echo ""
             echo "Options:"
             echo "  --dry-run    Show what would change without modifying files"
-            echo "  --scope      Only sync specific scope (root, ui, api, sdk, mcp_server)"
+            echo "  --scope      Only sync specific scope (root, agent_skills, ui, api, sdk, mcp_server)"
             exit 0
             ;;
         *)
@@ -49,7 +49,19 @@ done
 get_agents_path() {
     local scope="$1"
     case "$scope" in
-        root)       echo "$REPO_ROOT/AGENTS.md" ;;
+        root)
+            # Prefer the conventional repo-root guide when it exists.
+            # Fallback: this repo (or a vendored component) may keep the canonical guide
+            # at agent_skills/AGENTS.md.
+            if [ -f "$REPO_ROOT/AGENTS.md" ]; then
+                echo "$REPO_ROOT/AGENTS.md"
+            elif [ -f "$REPO_ROOT/agent_skills/AGENTS.md" ]; then
+                echo "$REPO_ROOT/agent_skills/AGENTS.md"
+            else
+                echo "$REPO_ROOT/AGENTS.md"
+            fi
+            ;;
+        agent_skills) echo "$REPO_ROOT/agent_skills/AGENTS.md" ;;
         ui)         echo "$REPO_ROOT/ui/AGENTS.md" ;;
         api)        echo "$REPO_ROOT/api/AGENTS.md" ;;
         sdk)        echo "$REPO_ROOT/prowler/AGENTS.md" ;;
@@ -209,6 +221,10 @@ while IFS= read -r scope; do
     scopes_sorted+=("$scope")
 done < <(printf "%s\n" "${!SCOPE_SKILLS[@]}" | sort)
 
+# Merge rows by target AGENTS.md path. This prevents the Auto-invoke section from
+# being overwritten when multiple scopes map to the same file.
+declare -A PATH_ROWS  # agents_path -> $'action\tskill\n...'
+
 for scope in "${scopes_sorted[@]}"; do
     agents_path=$(get_agents_path "$scope")
 
@@ -217,19 +233,7 @@ for scope in "${scopes_sorted[@]}"; do
         continue
     fi
 
-    echo -e "${BLUE}Processing: $scope -> $(basename "$(dirname "$agents_path")")/AGENTS.md${NC}"
-
-    # Build the Auto-invoke table
-    auto_invoke_section="### Auto-invoke Skills
-
-When performing these actions, ALWAYS invoke the corresponding skill FIRST:
-
-| Action | Skill |
-|--------|-------|"
-
-    # Expand into sortable rows: "action<TAB>skill"
     rows=()
-
     IFS='|' read -ra skill_entries <<< "${SCOPE_SKILLS[$scope]}"
     for entry in "${skill_entries[@]}"; do
         skill_name="${entry%%:*}"
@@ -244,25 +248,45 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
         done
     done
 
-    # Deterministic row order: Action then Skill
+    if [ ${#rows[@]} -gt 0 ]; then
+        new_block=""
+        # NOTE: Use printf -v (not $(...)) so trailing newlines are preserved.
+        printf -v new_block "%s\n" "${rows[@]}"
+        PATH_ROWS[$agents_path]="${PATH_ROWS[$agents_path]}${new_block}"
+    fi
+done
+
+paths_sorted=()
+while IFS= read -r path; do
+    paths_sorted+=("$path")
+done < <(printf "%s\n" "${!PATH_ROWS[@]}" | sort)
+
+for agents_path in "${paths_sorted[@]}"; do
+    echo -e "${BLUE}Processing: $(basename "$(dirname "$agents_path")")/AGENTS.md${NC}"
+
+    auto_invoke_section="### Auto-invoke Skills
+
+When performing these actions, ALWAYS invoke the corresponding skill FIRST:
+
+| Action | Skill |
+|--------|-------|"
+
+    # Deterministic row order: Action then Skill, and unique rows.
     while IFS=$'\t' read -r action skill_name; do
         [ -z "$action" ] && continue
         auto_invoke_section="$auto_invoke_section
 | $action | \`$skill_name\` |"
-    done < <(printf "%s\n" "${rows[@]}" | LC_ALL=C sort -t $'\t' -k1,1 -k2,2)
+    done < <(printf "%s" "${PATH_ROWS[$agents_path]}" | LC_ALL=C sort -u -t $'\t' -k1,1 -k2,2)
 
     if $DRY_RUN; then
         echo -e "${YELLOW}[DRY RUN] Would update $agents_path with:${NC}"
         echo "$auto_invoke_section"
         echo ""
     else
-        # Write new section to temp file (avoids awk multi-line string issues on macOS)
         section_file=$(mktemp)
         echo "$auto_invoke_section" > "$section_file"
 
-        # Check if Auto-invoke section exists
         if grep -q "### Auto-invoke Skills" "$agents_path"; then
-            # Replace existing section (up to next --- or ## heading)
             awk '
                 /^### Auto-invoke Skills/ {
                     while ((getline line < "'"$section_file"'") > 0) print line
@@ -279,7 +303,6 @@ When performing these actions, ALWAYS invoke the corresponding skill FIRST:
             mv "$agents_path.tmp" "$agents_path"
             echo -e "${GREEN}  ✓ Updated Auto-invoke section${NC}"
         else
-            # Insert after Skills Reference blockquote
             awk '
                 /^>.*SKILL\.md\)$/ && !inserted {
                     print

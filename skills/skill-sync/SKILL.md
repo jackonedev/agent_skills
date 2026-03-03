@@ -44,7 +44,8 @@ metadata:
 
 | Scope | Updates |
 |-------|---------|
-| `root` | `AGENTS.md` (repo root) |
+| `root` | `AGENTS.md` (repo root). Some repos (like this one when vendored as a component) may use `agent_skills/AGENTS.md` as the root guide. |
+| `agent_skills` | `agent_skills/AGENTS.md` |
 | `ui` | `ui/AGENTS.md` |
 | `api` | `api/AGENTS.md` |
 | `sdk` | `sdk/AGENTS.md` |

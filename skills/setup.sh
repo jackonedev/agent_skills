@@ -162,10 +162,18 @@ setup_codex() {
 }
 
 setup_copilot() {
+    local source_agents=""
+
     if [ -f "$REPO_ROOT/AGENTS.md" ]; then
+        source_agents="$REPO_ROOT/AGENTS.md"
+    elif [ -f "$REPO_ROOT/agent_skills/AGENTS.md" ]; then
+        source_agents="$REPO_ROOT/agent_skills/AGENTS.md"
+    fi
+
+    if [ -n "$source_agents" ]; then
         mkdir -p "$REPO_ROOT/.github"
-        cp "$REPO_ROOT/AGENTS.md" "$REPO_ROOT/.github/copilot-instructions.md"
-        echo -e "${GREEN}  ✓ AGENTS.md -> .github/copilot-instructions.md${NC}"
+        cp "$source_agents" "$REPO_ROOT/.github/copilot-instructions.md"
+        echo -e "${GREEN}  ✓ $(basename "$source_agents") -> .github/copilot-instructions.md${NC}"
     fi
 }
 
